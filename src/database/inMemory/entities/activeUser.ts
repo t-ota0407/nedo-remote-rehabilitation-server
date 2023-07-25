@@ -11,7 +11,7 @@ export class ActiveUser {
   public readonly syncCommunicationOption: SyncCommunicationOption;
   
   private readonly createdAt: Date;
-  private updatedAt: Date;
+  private _updatedAt: Date;
 
   private _rehabilitationCondition: RehabilitationCondition;
   private _reachingProgress: number;
@@ -35,7 +35,7 @@ export class ActiveUser {
     this.syncCommunicationOption = syncCommunicationOption;
 
     this.createdAt = new Date();
-    this.updatedAt = new Date();
+    this._updatedAt = new Date();
 
     this._rehabilitationCondition = rehabilitationCondition;
     
@@ -80,29 +80,33 @@ export class ActiveUser {
     return this._rightHandPosture;
   }
 
+  get updatedAt(): Date {
+    return this._updatedAt;
+  }
+
   set reachingProgress(value: number) {
     this._reachingProgress = value;
-    this.updatedAt = new Date();
+    this._updatedAt = new Date();
   }
 
   set rehabilitationCondition(value: RehabilitationCondition) {
     this.rehabilitationCondition = value;
-    this.updatedAt = new Date();
+    this._updatedAt = new Date();
   }
 
   set headPosture(value: Posture) {
     this._headPosture = value;
-    this.updatedAt = new Date();
+    this._updatedAt = new Date();
   }
 
   set leftHandPosture(value: Posture) {
     this._leftHandPosture = value;
-    this.updatedAt = new Date();
+    this._updatedAt = new Date();
   }
 
   set rightHandPosture(value: Posture) {
     this._rightHandPosture = value;
-    this.updatedAt = new Date();
+    this._updatedAt = new Date();
   }
 
   public copy(): ActiveUser {

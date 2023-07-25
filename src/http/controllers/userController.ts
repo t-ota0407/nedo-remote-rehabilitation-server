@@ -7,19 +7,19 @@ import { PostgresDB } from "../../database/postgres/postgresDB";
 
 export const signupUser = async (req: Request, res: Response) => {
 
-  const uuid = uuidv4();
-  const payload = { uuid, };
+  const userUuid = uuidv4();
+  const payload = { userUuid, };
   const token = Token.generate(payload);
 
   const user = new User();
-  user.uuid = uuid;
+  user.uuid = userUuid;
   user.userName = req.body.userName;
   user.password = req.body.password;
   user.createdAt = new Date();
   await PostgresDB.getInstance().dataSource.manager.save(user);
 
   return res.status(200).json({
-    uuid,
+    userUuid,
     token,
   });
 };

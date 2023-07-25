@@ -16,6 +16,7 @@ userRouter.post(
       return res.status(400).json({});
     }
 
+    console.log("post");
     return userController.signupUser(req, res);
   }
 );

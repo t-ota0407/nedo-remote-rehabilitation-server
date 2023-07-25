@@ -3,14 +3,14 @@ import { SyncCommunicationUser } from "../common/syncCommunicationUser";
 export class UDPUploadData {
 
   public constructor(
-    public readonly timestamp: Date,
+    public readonly timestamp: string,
     public readonly user: SyncCommunicationUser,
   ) { }
 
   public static fromJson(jsonString: string): UDPUploadData | undefined {
     const parsedObject: object = JSON.parse(jsonString);
     
-    if (!("timestamp" in parsedObject) || !(this.isConvertibleToDate(parsedObject.timestamp))) {
+    if (!("timestamp" in parsedObject) || (typeof parsedObject.timestamp !== "string")) {
       return undefined;
     }
 
@@ -30,17 +30,8 @@ export class UDPUploadData {
     }
 
     return new UDPUploadData(
-      new Date(parsedObject.timestamp as string),
+      parsedObject.timestamp,
       syncCommunicationUser
     );
-  }
-
-  private static isConvertibleToDate(value: unknown): boolean {
-    if (typeof value !== "string") {
-      return false;
-    }
-
-    const date = new Date(value);
-    return date.toString() !== "Invalid Date";
   }
 }

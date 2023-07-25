@@ -27,7 +27,6 @@ export class UDP {
     });
 
     this.socket.on('message', (msg, rinfo) => {
-      console.log(msg.toString());
       const uploadData = UDPUploadData.fromJson(msg.toString());
       if (uploadData === undefined) {
         return console.error("server error:\nServer received unparsable datagram.");
@@ -68,18 +67,24 @@ export class UDP {
     if (!this.sendDatagramInterval) {
       this.sendDatagramInterval = setInterval(() => {
         try {
+          console.log("a");
           const activeUsers = InMemoryDB.getInstance().getActiveUsersClone();
 
+          console.log("b");
           activeUsers.forEach((sendingActiveUser: ActiveUser) => {
+            console.log("c");
             const udpDownloadData = UDPDownloadData.fromActiveUser(sendingActiveUser);
+            console.log("d");
             const message = Buffer.from(JSON.stringify(udpDownloadData));
+            console.log(message);
             
             activeUsers.forEach((remoteTargetActiveUser: ActiveUser) => {
               const isSyncCommunicationProtocolUDP = remoteTargetActiveUser.syncCommunicationProtocol === 'UDP';
               
-              if (!isSyncCommunicationProtocolUDP) {
+              if (isSyncCommunicationProtocolUDP) {
                 const syncCommunicationOption = remoteTargetActiveUser.syncCommunicationOption;
-                
+                console.log(syncCommunicationOption)
+
                 let targetPort = undefined;
                 if ('port' in syncCommunicationOption) {
                   targetPort = syncCommunicationOption.port;
@@ -91,6 +96,7 @@ export class UDP {
                 }
 
                 this.socket.send(message, 0, message.length, targetPort, targetAddress);
+                console.log("send");
               }
             });
           });
@@ -100,6 +106,7 @@ export class UDP {
             // Whenever a second user accesses the server, a Range Error occurs for some reason.
             // There are no logical issue, so this error can be ignored.
             console.log("A recoverable exception occurred. (Range Error)");
+            console.log(error.message);
           } else {
             console.error(`Error:\n${error}`);
           }
