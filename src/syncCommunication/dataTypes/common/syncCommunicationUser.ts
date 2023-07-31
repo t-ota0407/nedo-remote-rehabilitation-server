@@ -4,6 +4,7 @@ import { RehabilitationCondition, rehabilitationConditions } from "../../../type
 export class SyncCommunicationUser {
   public constructor(
     public readonly userUuid: string,
+    public readonly userName: string,
     public readonly rehabilitationCondition: RehabilitationCondition,
     public readonly reachingProgress: number,
     public readonly headPosture: Posture,
@@ -14,6 +15,10 @@ export class SyncCommunicationUser {
   public static fromJson(json: object): SyncCommunicationUser | undefined {
 
     if (!("userUuid" in json) || typeof json.userUuid !== "string") {
+      return undefined;
+    }
+
+    if (!("userName" in json) || typeof json.userName !== "string") {
       return undefined;
     }
 
@@ -55,6 +60,7 @@ export class SyncCommunicationUser {
 
     return new SyncCommunicationUser(
       json.userUuid,
+      json.userName,
       json.rehabilitationCondition as RehabilitationCondition,
       Number(json.reachingProgress),
       headPosture,

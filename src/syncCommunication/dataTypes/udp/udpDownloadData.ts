@@ -16,6 +16,7 @@ export class UDPDownloadData {
       this.formatDate(new Date()),
       new SyncCommunicationUser(
         activeUser.uuid,
+        activeUser.username,
         activeUser.rehabilitationCondition,
         activeUser.reachingProgress,
         activeUser.headPosture,
