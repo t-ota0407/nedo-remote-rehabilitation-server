@@ -5,6 +5,7 @@ import passport from "./authentification/passportAuthentification";
 import { PostgresDB } from "./database/postgres/postgresDB";
 import { userRouter } from "./http/routers/userRouter";
 import { rehabilitationResultRouter } from './http/routers/rehabilitationResultRouter';
+import { rehabilitationSaveRouter } from "./http/routers/rehabilitationSaveRouter";
 import { UDP } from "./syncCommunication/udp";
 
 class Server {
@@ -46,6 +47,7 @@ class Server {
   private startHTTP() {
     this.app.use("/api/v1/user", userRouter);
     this.app.use("/api/v1/rehabilitation-result", rehabilitationResultRouter);
+    this.app.use("/api/v1/rehabilitation-save", rehabilitationSaveRouter);
 
     this.app.listen(this.httpPort, () => {
       console.log(`HTTP connection port is ${this.httpPort}`);

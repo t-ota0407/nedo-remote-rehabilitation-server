@@ -2,6 +2,7 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "./entities/user";
 import { RehabilitationResult } from "./entities/rehabilitationResult";
+import { RehabilitationSaveData } from "./entities/rehabilitationSaveData";
 
 require('dotenv').config();
 
@@ -14,7 +15,7 @@ export const postgresDBDataSource = new DataSource({
   database: process.env.PG_DATABASE,
   synchronize: false,
   logging: false,
-  entities: [User, RehabilitationResult],
+  entities: [User, RehabilitationResult, RehabilitationSaveData],
   migrations: ["dist/database/postgres/migrations/*.js"],
   subscribers: [],
 })

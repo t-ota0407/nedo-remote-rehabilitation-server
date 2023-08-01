@@ -5,7 +5,6 @@ import { ActiveUser } from "../database/inMemory/entities/activeUser";
 import { UDPDownloadData } from "./dataTypes/udp/udpDownloadData";
 import { PostgresDB } from "../database/postgres/postgresDB";
 import { User } from "../database/postgres/entities/user";
-import { getRepository } from "typeorm";
 
 export class UDP {
   private socket: dgram.Socket;
@@ -93,8 +92,6 @@ export class UDP {
                 if ('address' in syncCommunicationOption) {
                   targetAddress = syncCommunicationOption.address;
                 }
-
-                console.log("send");
 
                 this.socket.send(message, 0, message.length, targetPort, targetAddress);
               }

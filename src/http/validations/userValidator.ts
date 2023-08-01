@@ -8,4 +8,4 @@ export const signupUser = [
 export const signinUser = [
   check("userName").exists(),
   check("password").exists(),
-]
+];
