@@ -6,5 +6,5 @@ export const getRehabilitationSave = [
 
 export const postRehabilitationSave = [
   check("userUuid").exists(),
-  check("sharpenedKnife").exists(),
+  check("saveData").exists(),
 ];

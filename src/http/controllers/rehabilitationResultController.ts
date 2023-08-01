@@ -11,12 +11,12 @@ export const postRehabilitationResultController = async (req: Request, res: Resp
   rehabilitationResult.uuid = uuid;
   rehabilitationResult.createdAt = new Date();
   rehabilitationResult.userUuid = req.body.userUuid;
-  rehabilitationResult.rehabilitationCondition = req.body.rehabilitationCondition;
-  rehabilitationResult.rehabilitationStartedAt = req.body.rehabilitationStartedAt;
-  rehabilitationResult.rehabilitationFinishedAt = req.body.rehabilitationFinishedAt;
-  rehabilitationResult.reachingTimes = req.body.reachingTimes;
-  rehabilitationResult.sharpenedKnifeBefeore = req.body.sharpenedKnifeBefore;
-  rehabilitationResult.sharpenedKnifeAfter = req.body.sharpenedKnifeAfter;
+  rehabilitationResult.rehabilitationCondition = req.body.result.rehabilitationCondition;
+  rehabilitationResult.rehabilitationStartedAt = new Date(); // todo: req.body.result.rehabilitationStartedAtから取得できるようにする。
+  rehabilitationResult.rehabilitationFinishedAt = new Date(); // todo: req.body.result.rehabilitationFinishedAtから取得できるようにする。
+  rehabilitationResult.reachingTimes = req.body.result.reachingTimes;
+  rehabilitationResult.sharpenedKnifeBefeore = req.body.result.sharpenedKnifeBefore;
+  rehabilitationResult.sharpenedKnifeAfter = req.body.result.sharpenedKnifeAfter;
   await PostgresDB.getInstance().dataSource.manager.save(rehabilitationResult);
 
   return res.status(200).json({

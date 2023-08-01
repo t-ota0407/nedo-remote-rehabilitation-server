@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
-import { RehabilitationResult } from "../../database/postgres/entities/rehabilitationResult";
 import { PostgresDB } from "../../database/postgres/postgresDB";
 import { RehabilitationSaveData } from "../../database/postgres/entities/rehabilitationSaveData";
+import { SaveDataContent } from "../../types/saveDataContent";
 
 export const getRehabilitationSaveController = async (req: Request, res: Response) => {
   const userUuid = req.query.userUuid?.toString();
@@ -19,9 +19,13 @@ export const getRehabilitationSaveController = async (req: Request, res: Respons
     return res.status(400).json({});
   }
 
+  const saveData: SaveDataContent = {
+    sharpenedKnife: rehabilitationSaveData.sharpenedKnife,
+  }
+
   return res.status(200).json({
     userUuid,
-    sharpenedKnife: rehabilitationSaveData.sharpenedKnife,
+    saveData,
   });
 }
 
@@ -32,7 +36,7 @@ export const postRehabilitationSaveController = async (req: Request, res: Respon
   const rehabilitationSaveData = new RehabilitationSaveData();
   rehabilitationSaveData.uuid = uuid;
   rehabilitationSaveData.userUuid = req.body.userUuid;
-  rehabilitationSaveData.sharpenedKnife = req.body.sharpenedKnife;
+  rehabilitationSaveData.sharpenedKnife = req.body.saveData.sharpenedKnife;
   rehabilitationSaveData.createdAt = new Date();
   await PostgresDB.getInstance().dataSource.manager.save(rehabilitationSaveData);
 

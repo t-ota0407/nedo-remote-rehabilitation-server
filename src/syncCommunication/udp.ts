@@ -29,7 +29,6 @@ export class UDP {
     });
 
     this.socket.on('message', async (msg, rinfo) => {
-      console.log("receive");
       const uploadData = UDPUploadData.fromJson(msg.toString());
       if (uploadData === undefined) {
         return console.error("server error:\nServer received unparsable datagram.");

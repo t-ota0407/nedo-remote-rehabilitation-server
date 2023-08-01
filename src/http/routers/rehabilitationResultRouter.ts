@@ -12,6 +12,8 @@ rehabilitationResultRouter.post(
   passport.authenticate("jwt", { session: false }),
   rehabilitationResultValidator.postRehabilitationResult,
   (req: Request, res: Response) => {
+    console.log("[post] /rehabilitation-result");
+
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
