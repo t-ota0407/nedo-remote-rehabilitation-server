@@ -19,3 +19,17 @@ userRouter.post(
     return userController.signupUser(req, res);
   }
 );
+
+userRouter.post(
+  "/signin",
+  userValidator.signinUser,
+  (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({});
+    }
+
+    return userController.signinUser(req, res);
+  }
+);

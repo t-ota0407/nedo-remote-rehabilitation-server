@@ -23,3 +23,32 @@ export const signupUser = async (req: Request, res: Response) => {
     token,
   });
 };
+
+export const signinUser = async (req: Request, res: Response) => {
+
+  const userName = req.body.userName;
+  const password = req.body.password;
+  
+  const user = await PostgresDB.getInstance().dataSource.manager.findOneOrFail(
+    User,
+    {
+      where: {
+        userName,
+        password,
+      },
+    }
+  );
+
+  if (user === undefined) {
+    return res.status(404).json({});
+  }
+
+  const userUuid = user.uuid;
+  const payload = { userUuid, };
+  const token = Token.generate(payload);
+
+  return res.status(200).json({
+    userUuid,
+    token,
+  });
+};
