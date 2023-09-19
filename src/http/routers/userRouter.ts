@@ -33,3 +33,17 @@ userRouter.post(
     return userController.signinUser(req, res);
   }
 );
+
+userRouter.post(
+  "/signup-with-temporary-account",
+  userValidator.signupWithTemporaryAccountUser,
+  (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({});
+    }
+
+    return userController.signupWithTemporaryAccount(req, res);
+  }
+);

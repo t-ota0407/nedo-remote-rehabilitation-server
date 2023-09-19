@@ -9,3 +9,7 @@ export const signinUser = [
   check("userName").exists(),
   check("password").exists(),
 ];
+
+export const signupWithTemporaryAccountUser = [
+  check("userName").exists(),
+];

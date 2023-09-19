@@ -52,3 +52,22 @@ export const signinUser = async (req: Request, res: Response) => {
     token,
   });
 };
+
+export const signupWithTemporaryAccount = async (req: Request, res: Response) => {
+  
+  const userUuid = uuidv4();
+  const payload = { userUuid, };
+  const token = Token.generate(payload);
+
+  const user = new User();
+  user.uuid = userUuid;
+  user.userName = req.body.userName;
+  user.password = "";
+  user.createdAt = new Date();
+  await PostgresDB.getInstance().dataSource.manager.save(user);
+
+  return res.status(200).json({
+    userUuid,
+    token,
+  });
+}

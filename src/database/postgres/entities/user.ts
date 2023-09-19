@@ -15,4 +15,6 @@ export class User {
   @Column({ name: 'created_at' })
   createdAt!: Date;
 
+  @Column({ name: 'is_temporary' })
+  isTemporary!: boolean;
 }
