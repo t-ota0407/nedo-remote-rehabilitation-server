@@ -1,4 +1,5 @@
 import { Entity, PrimaryColumn, Column } from "typeorm";
+import { avatarType } from "../../../types/avatarType";
 
 @Entity()
 export class User {
@@ -17,4 +18,7 @@ export class User {
 
   @Column({ name: 'is_temporary' })
   isTemporary!: boolean;
+
+  @Column({ name: 'latest_avatar_type' })
+  avatarType!: avatarType;
 }

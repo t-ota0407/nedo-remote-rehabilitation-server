@@ -10,7 +10,7 @@ export class AddIsTemporaryToUserTable1695016675519 implements MigrationInterfac
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE "user" DROP COLUMN is_temporary boolean;`
+      `ALTER TABLE "user" DROP COLUMN is_temporary;`
     );
   }
 
