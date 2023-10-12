@@ -5,4 +5,4 @@ export const avatarTypes = [
   'AVATAR_MALE_2'
 ] as const;
 
-export type avatarType = typeof avatarTypes[number];
+export type AvatarType = typeof avatarTypes[number];

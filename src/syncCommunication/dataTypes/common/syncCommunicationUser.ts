@@ -1,3 +1,4 @@
+import { AvatarType, avatarTypes } from "../../../types/avatarType";
 import { Posture, createPostureFromObject } from "../../../types/posture";
 import { RehabilitationCondition, rehabilitationConditions } from "../../../types/rehabilitationCondition";
 
@@ -5,6 +6,7 @@ export class SyncCommunicationUser {
   public constructor(
     public readonly userUuid: string,
     public readonly userName: string,
+    public readonly avatarType: AvatarType,
     public readonly rehabilitationCondition: RehabilitationCondition,
     public readonly reachingProgress: number,
     public readonly headPosture: Posture,
@@ -19,6 +21,10 @@ export class SyncCommunicationUser {
     }
 
     if (!("userName" in json) || typeof json.userName !== "string") {
+      return undefined;
+    }
+
+    if (!("avatarType" in json) || !(this.isConvertibleToAvatarType(json.avatarType))) {
       return undefined;
     }
 
@@ -61,12 +67,21 @@ export class SyncCommunicationUser {
     return new SyncCommunicationUser(
       json.userUuid,
       json.userName,
+      json.avatarType as AvatarType,
       json.rehabilitationCondition as RehabilitationCondition,
       Number(json.reachingProgress),
       headPosture,
       leftHandPosture,
       rightHandPosture,
     );
+  }
+
+  private static isConvertibleToAvatarType(value: unknown): boolean {
+    if (typeof value !== "string") {
+      return false;
+    }
+
+    return avatarTypes.find((element) => element === value) !== undefined;
   }
 
   private static isConvertibleToRehabilitationCondition(value: unknown): boolean {

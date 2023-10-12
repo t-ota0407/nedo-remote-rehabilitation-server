@@ -1,3 +1,4 @@
+import { AvatarType } from "../../../types/avatarType";
 import { Posture, createPosture } from "../../../types/posture";
 import { RehabilitationCondition } from "../../../types/rehabilitationCondition";
 import { SyncCommunicationOption } from "../../../types/syncCommunicationOption";
@@ -14,6 +15,7 @@ export class ActiveUser {
   private _updatedAt: Date;
 
   private _rehabilitationCondition: RehabilitationCondition;
+  private _avatarType: AvatarType;
   private _reachingProgress: number;
   private _headPosture: Posture;
   private _leftHandPosture: Posture;
@@ -24,6 +26,7 @@ export class ActiveUser {
     syncCommunicationProtocol: SyncCommunicationProtocol,
     syncCommunicationOption: SyncCommunicationOption,
     rehabilitationCondition: RehabilitationCondition,
+    avatarType: AvatarType,
     reachingProgress?: number,
     headPosture?: Posture,
     leftHandPosture?: Posture, rightHandPosture?: Posture
@@ -38,6 +41,8 @@ export class ActiveUser {
     this._updatedAt = new Date();
 
     this._rehabilitationCondition = rehabilitationCondition;
+
+    this._avatarType = avatarType;
     
     this._reachingProgress = 0;
     if (reachingProgress) {
@@ -62,6 +67,10 @@ export class ActiveUser {
 
   get reachingProgress(): number {
     return this._reachingProgress;
+  }
+
+  get avatarType(): AvatarType {
+    return this._avatarType;
   }
 
   get rehabilitationCondition(): RehabilitationCondition {
@@ -116,6 +125,7 @@ export class ActiveUser {
       this.syncCommunicationProtocol,
       this.syncCommunicationOption,
       this._rehabilitationCondition,
+      this._avatarType,
       this._reachingProgress,
       this._headPosture,
       this._leftHandPosture,

@@ -1,7 +1,4 @@
-import moment from "moment";
 import { ActiveUser } from "../../../database/inMemory/entities/activeUser";
-import { Posture } from "../../../types/posture";
-import { RehabilitationCondition } from "../../../types/rehabilitationCondition";
 import { SyncCommunicationUser } from "../common/syncCommunicationUser";
 
 export class UDPDownloadData {
@@ -17,6 +14,7 @@ export class UDPDownloadData {
       new SyncCommunicationUser(
         activeUser.uuid,
         activeUser.username,
+        activeUser.avatarType,
         activeUser.rehabilitationCondition,
         activeUser.reachingProgress,
         activeUser.headPosture,

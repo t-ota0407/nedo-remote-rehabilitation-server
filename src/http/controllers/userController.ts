@@ -16,6 +16,7 @@ export const signupUser = async (req: Request, res: Response) => {
   user.userName = req.body.userName;
   user.password = req.body.password;
   user.createdAt = new Date();
+  user.avatarType = req.body.currentAvatarType;
   await PostgresDB.getInstance().dataSource.manager.save(user);
 
   return res.status(200).json({
@@ -28,6 +29,7 @@ export const signinUser = async (req: Request, res: Response) => {
 
   const userName = req.body.userName;
   const password = req.body.password;
+  const currentAvatarType = req.body.currentAvatarType;
   
   const user = await PostgresDB.getInstance().dataSource.manager.findOneOrFail(
     User,
@@ -37,11 +39,14 @@ export const signinUser = async (req: Request, res: Response) => {
         password,
       },
     }
-  );
+  );  
 
   if (user === undefined) {
     return res.status(404).json({});
   }
+
+  user.avatarType = currentAvatarType;
+  await PostgresDB.getInstance().dataSource.manager.save(user);
 
   const userUuid = user.uuid;
   const payload = { userUuid, };
@@ -64,6 +69,7 @@ export const signupWithTemporaryAccount = async (req: Request, res: Response) =>
   user.userName = req.body.userName;
   user.password = "";
   user.createdAt = new Date();
+  user.avatarType = req.body.currentAvatarType;
   await PostgresDB.getInstance().dataSource.manager.save(user);
 
   return res.status(200).json({
