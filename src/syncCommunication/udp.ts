@@ -3,8 +3,6 @@ import { UDPUploadData } from "./dataTypes/udp/udpUploadData";
 import { InMemoryDB } from "../database/inMemory/inMemoryDB";
 import { ActiveUser } from "../database/inMemory/entities/activeUser";
 import { UDPDownloadData } from "./dataTypes/udp/udpDownloadData";
-import { PostgresDB } from "../database/postgres/postgresDB";
-import { User } from "../database/postgres/entities/user";
 
 export class UDP {
   private socket: dgram.Socket;
@@ -113,7 +111,7 @@ export class UDP {
   }
 
   public stopSendingDatagram() {
-    if (this.sendDatagramInterval) {
+    if (this.sendDatagramInterval !== null) {
       clearInterval(this.sendDatagramInterval);
       this.sendDatagramInterval = null;
     }

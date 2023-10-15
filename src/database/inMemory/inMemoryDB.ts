@@ -5,6 +5,8 @@ export class InMemoryDB {
 
   private activeUsers: ActiveUser[] = [];
 
+  private readonly deactivationThresholdTime = 15000;
+
   private constructor() { }
 
   public static getInstance(): InMemoryDB {
@@ -31,5 +33,17 @@ export class InMemoryDB {
 
   public removeActiveUser(uuid: string) {
     this.activeUsers = this.activeUsers.filter(user => user.uuid !== uuid);
+  }
+
+  public CheckUserDeactivation() {
+    const now = new Date();
+    this.activeUsers = this.activeUsers.filter((user: ActiveUser) => {
+      const timeDifference = Math.abs(user.updatedAt.getTime() - now.getTime());
+      return timeDifference < this.deactivationThresholdTime;
+    });
+  }
+
+  public CheckActiveUserExistence(): boolean {
+    return this.activeUsers.length !== 0;
   }
 }

@@ -7,6 +7,8 @@ import { userRouter } from "./http/routers/userRouter";
 import { rehabilitationResultRouter } from './http/routers/rehabilitationResultRouter';
 import { rehabilitationSaveRouter } from "./http/routers/rehabilitationSaveRouter";
 import { UDP } from "./syncCommunication/udp";
+import { schedule } from "node-cron";
+import { InMemoryDB } from "./database/inMemory/inMemoryDB";
 
 class Server {
   private app: express.Application;
@@ -38,6 +40,7 @@ class Server {
     this.startHTTP();
     this.startUDP();
     this.startSocket();
+    this.startScheduledPeriodicTasks();
   }
 
   private async connectToDatabase(): Promise<void> {
@@ -62,6 +65,18 @@ class Server {
 
   private startSocket() {
 
+  }
+
+  private startScheduledPeriodicTasks() {
+    schedule("10,30,50 * * * * *", () => {
+      InMemoryDB.getInstance().CheckUserDeactivation();
+    });
+
+    schedule("0 * * * * *", () => {
+      if (!InMemoryDB.getInstance().CheckActiveUserExistence()) {
+        this.udp.stopSendingDatagram();
+      }
+    });
   }
 }
 
