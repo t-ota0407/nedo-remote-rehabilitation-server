@@ -44,6 +44,7 @@ export class UDP {
             rinfo,
             uploadData.user.rehabilitationCondition,
             uploadData.user.avatarType,
+            uploadData.user.avatarState,
             uploadData.user.reachingProgress,
             uploadData.user.headPosture,
             uploadData.user.leftHandPosture,

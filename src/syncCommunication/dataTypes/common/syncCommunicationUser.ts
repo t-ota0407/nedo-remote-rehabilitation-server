@@ -1,3 +1,4 @@
+import { AvatarState, avatarStates } from "../../../types/avatarState";
 import { AvatarType, avatarTypes } from "../../../types/avatarType";
 import { Posture, createPostureFromObject } from "../../../types/posture";
 import { RehabilitationCondition, rehabilitationConditions } from "../../../types/rehabilitationCondition";
@@ -8,10 +9,13 @@ export class SyncCommunicationUser {
     public readonly userName: string,
     public readonly avatarType: AvatarType,
     public readonly rehabilitationCondition: RehabilitationCondition,
+    public readonly avatarState: AvatarState,
     public readonly reachingProgress: number,
     public readonly headPosture: Posture,
     public readonly leftHandPosture: Posture,
     public readonly rightHandPosture: Posture,
+    public readonly leftLegPosture: Posture,
+    public readonly rightLegPosture: Posture,
   ) { }
   
   public static fromJson(json: object): SyncCommunicationUser | undefined {
@@ -32,6 +36,10 @@ export class SyncCommunicationUser {
       return undefined;
     }
 
+    if (!("avatarState" in json) || !(this.isConvertibleToAvatarState(json.avatarState))) {
+      return undefined;
+    }
+
     if (!("reachingProgress" in json) || isNaN(Number(json.reachingProgress))) {
       return undefined;
     }
@@ -48,9 +56,23 @@ export class SyncCommunicationUser {
       return undefined;
     }
 
+    if (!("leftLegPosture" in json) || !(typeof json.leftLegPosture === "object" && json.leftLegPosture !== null)) {
+      return undefined;
+    }
+
+    if (!("rightLegPosture" in json) || !(typeof json.rightLegPosture === "object" && json.rightLegPosture !== null)) {
+      return undefined;
+    }
+
+    if (!("leftLegPosture" in json) || !(typeof json.leftLegPosture === "object" && json.leftLegPosture !== null)) {
+      return undefined;
+    }
+
     const headPosture = createPostureFromObject(json.headPosture);
     const leftHandPosture = createPostureFromObject(json.leftHandPosture);
     const rightHandPosture = createPostureFromObject(json.rightHandPosture);
+    const leftLegPosture = createPostureFromObject(json.leftLegPosture);
+    const rightLegPosture = createPostureFromObject(json.rightLegPosture);
 
     if (headPosture === undefined) {
       return undefined;
@@ -64,15 +86,26 @@ export class SyncCommunicationUser {
       return undefined;
     }
 
+    if (leftLegPosture === undefined) {
+      return undefined;
+    }
+
+    if (rightLegPosture === undefined) {
+      return undefined;
+    }
+
     return new SyncCommunicationUser(
       json.userUuid,
       json.userName,
       json.avatarType as AvatarType,
       json.rehabilitationCondition as RehabilitationCondition,
+      json.avatarState as AvatarState,
       Number(json.reachingProgress),
       headPosture,
       leftHandPosture,
       rightHandPosture,
+      leftLegPosture,
+      rightLegPosture,
     );
   }
 
@@ -90,5 +123,13 @@ export class SyncCommunicationUser {
     }
 
     return rehabilitationConditions.find((element) => element === value) !== undefined; 
+  }
+
+  private static isConvertibleToAvatarState(value: unknown): boolean {
+    if (typeof value !== "string") {
+      return false;
+    }
+    
+    return avatarStates.find((element) => element === value) !== undefined;
   }
 }

@@ -16,10 +16,13 @@ export class UDPDownloadData {
         activeUser.username,
         activeUser.avatarType,
         activeUser.rehabilitationCondition,
+        activeUser.avatarState,
         activeUser.reachingProgress,
         activeUser.headPosture,
         activeUser.leftHandPosture,
-        activeUser.rightHandPosture
+        activeUser.rightHandPosture,
+        activeUser.leftLegPosture,
+        activeUser.rightLegPosture,
       )
     );
   }

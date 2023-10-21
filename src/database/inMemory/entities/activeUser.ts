@@ -1,3 +1,4 @@
+import { AvatarState } from "../../../types/avatarState";
 import { AvatarType } from "../../../types/avatarType";
 import { Posture, createPosture } from "../../../types/posture";
 import { RehabilitationCondition } from "../../../types/rehabilitationCondition";
@@ -16,10 +17,13 @@ export class ActiveUser {
 
   private _rehabilitationCondition: RehabilitationCondition;
   private _avatarType: AvatarType;
+  private _avatarState: AvatarState;
   private _reachingProgress: number;
   private _headPosture: Posture;
   private _leftHandPosture: Posture;
   private _rightHandPosture: Posture;
+  private _leftLegPosture: Posture;
+  private _rightLegPosture: Posture;
 
   public constructor(
     uuid: string, username: string,
@@ -27,9 +31,11 @@ export class ActiveUser {
     syncCommunicationOption: SyncCommunicationOption,
     rehabilitationCondition: RehabilitationCondition,
     avatarType: AvatarType,
+    avatarState: AvatarState,
     reachingProgress?: number,
     headPosture?: Posture,
-    leftHandPosture?: Posture, rightHandPosture?: Posture
+    leftHandPosture?: Posture, rightHandPosture?: Posture,
+    leftLegPosture?: Posture, rightLegPosture?: Posture,
   ) {
     this.uuid = uuid;
     this.username = username;
@@ -43,6 +49,8 @@ export class ActiveUser {
     this._rehabilitationCondition = rehabilitationCondition;
 
     this._avatarType = avatarType;
+
+    this._avatarState = avatarState;
     
     this._reachingProgress = 0;
     if (reachingProgress) {
@@ -63,6 +71,16 @@ export class ActiveUser {
     if (rightHandPosture) {
       this._rightHandPosture = rightHandPosture;
     }
+
+    this._leftLegPosture = createPosture();
+    if (leftLegPosture) {
+      this._leftLegPosture = leftLegPosture;
+    }
+
+    this._rightLegPosture = createPosture();
+    if (rightLegPosture) {
+      this._rightLegPosture = rightLegPosture;
+    }
   }
 
   get reachingProgress(): number {
@@ -77,6 +95,10 @@ export class ActiveUser {
     return this._rehabilitationCondition;
   }
 
+  get avatarState(): AvatarState {
+    return this._avatarState;
+  }
+
   get headPosture(): Posture {
     return this._headPosture;
   }
@@ -87,6 +109,14 @@ export class ActiveUser {
 
   get rightHandPosture(): Posture {
     return this._rightHandPosture;
+  }
+
+  get leftLegPosture(): Posture {
+    return this._leftLegPosture;
+  }
+
+  get rightLegPosture(): Posture {
+    return this._rightLegPosture;
   }
 
   get updatedAt(): Date {
@@ -126,10 +156,13 @@ export class ActiveUser {
       this.syncCommunicationOption,
       this._rehabilitationCondition,
       this._avatarType,
+      this._avatarState,
       this._reachingProgress,
       this._headPosture,
       this._leftHandPosture,
       this._rightHandPosture,
+      this._leftLegPosture,
+      this._rightLegPosture,
     );
   }
 }
