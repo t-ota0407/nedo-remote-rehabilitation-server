@@ -69,11 +69,11 @@ class Server {
 
   private startScheduledPeriodicTasks() {
     schedule("10,30,50 * * * * *", () => {
-      InMemoryDB.getInstance().CheckUserDeactivation();
+      InMemoryDB.getInstance().checkUserDeactivation();
     });
 
     schedule("0 * * * * *", () => {
-      if (!InMemoryDB.getInstance().CheckActiveUserExistence()) {
+      if (!InMemoryDB.getInstance().checkActiveUserExistence()) {
         this.udp.stopSendingDatagram();
       }
     });
