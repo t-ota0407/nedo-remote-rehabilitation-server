@@ -35,7 +35,7 @@ export class InMemoryDB {
     this.activeUsers = this.activeUsers.filter(user => user.uuid !== uuid);
   }
 
-  public CheckUserDeactivation() {
+  public checkUserDeactivation() {
     const now = new Date();
     this.activeUsers = this.activeUsers.filter((user: ActiveUser) => {
       const timeDifference = Math.abs(user.updatedAt.getTime() - now.getTime());
@@ -43,7 +43,7 @@ export class InMemoryDB {
     });
   }
 
-  public CheckActiveUserExistence(): boolean {
+  public checkActiveUserExistence(): boolean {
     return this.activeUsers.length !== 0;
   }
 }
