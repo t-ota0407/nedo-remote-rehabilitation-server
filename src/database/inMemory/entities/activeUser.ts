@@ -123,6 +123,11 @@ export class ActiveUser {
     return this._updatedAt;
   }
 
+  set avatarState(value: AvatarState) {
+    this._avatarState = value;
+    this._updatedAt = new Date();
+  }
+
   set reachingProgress(value: number) {
     this._reachingProgress = value;
     this._updatedAt = new Date();
@@ -145,6 +150,16 @@ export class ActiveUser {
 
   set rightHandPosture(value: Posture) {
     this._rightHandPosture = value;
+    this._updatedAt = new Date();
+  }
+
+  set leftLegPosture(value: Posture) {
+    this._leftLegPosture = value;
+    this._updatedAt = new Date();
+  }
+
+  set rightLegPosture(value: Posture) {
+    this._rightLegPosture = value;
     this._updatedAt = new Date();
   }
 

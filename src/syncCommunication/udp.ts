@@ -1,4 +1,4 @@
-import dgram, { RemoteInfo } from "node:dgram";
+import dgram from "node:dgram";
 import { UDPUploadData } from "./dataTypes/udp/udpUploadData";
 import { InMemoryDB } from "../database/inMemory/inMemoryDB";
 import { ActiveUser } from "../database/inMemory/entities/activeUser";
@@ -49,17 +49,23 @@ export class UDP {
             uploadData.user.headPosture,
             uploadData.user.leftHandPosture,
             uploadData.user.rightHandPosture,
+            uploadData.user.leftLegPosture,
+            uploadData.user.rightLegPosture,
           )
         );
+      } else {
+        activeUser.avatarState = uploadData.user.avatarState;
+        activeUser.reachingProgress = uploadData.user.reachingProgress;
+        activeUser.headPosture = uploadData.user.headPosture;
+        activeUser.leftHandPosture = uploadData.user.leftHandPosture;
+        activeUser.rightHandPosture = uploadData.user.rightHandPosture;
+        activeUser.leftLegPosture = uploadData.user.leftLegPosture;
+        activeUser.rightLegPosture = uploadData.user.rightLegPosture;
       }
 
       if (this.sendDatagramInterval === null) {
         this.startSendingDatagram();
       }
-
-      activeUser.headPosture = uploadData.user.headPosture;
-      activeUser.leftHandPosture = uploadData.user.leftHandPosture;
-      activeUser.rightHandPosture = uploadData.user.rightHandPosture;
     });
 
     return this.socket.bind(portNumber, callback);
@@ -81,16 +87,8 @@ export class UDP {
               
               if (isSyncCommunicationProtocolUDP && !isMyUserInformation) {
                 const syncCommunicationOption = remoteTargetActiveUser.syncCommunicationOption;
-
-                let targetPort = undefined;
-                if ('port' in syncCommunicationOption) {
-                  targetPort = syncCommunicationOption.port;
-                }
-
-                let targetAddress = undefined;
-                if ('address' in syncCommunicationOption) {
-                  targetAddress = syncCommunicationOption.address;
-                }
+                const targetPort = ('port' in syncCommunicationOption) ? syncCommunicationOption.port : undefined;
+                const targetAddress = ('address' in syncCommunicationOption) ? syncCommunicationOption.address : undefined;
 
                 this.socket.send(message, 0, message.length, targetPort, targetAddress);
               }
