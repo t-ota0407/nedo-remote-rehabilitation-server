@@ -8,7 +8,14 @@ export class UDPUploadData {
   ) { }
 
   public static fromJson(jsonString: string): UDPUploadData | undefined {
-    const parsedObject: object = JSON.parse(jsonString);
+    
+    let parsedObject: object;
+    try {
+      parsedObject = JSON.parse(jsonString);
+    } catch (error) {
+      console.error(error);
+      return undefined;
+    }
     
     if (!("timestamp" in parsedObject) || (typeof parsedObject.timestamp !== "string")) {
       return undefined;
