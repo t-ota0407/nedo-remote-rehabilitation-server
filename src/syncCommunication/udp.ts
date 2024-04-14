@@ -45,7 +45,7 @@ export class UDP {
             uploadData.user.rehabilitationCondition,
             uploadData.user.avatarType,
             uploadData.user.avatarState,
-            uploadData.user.reachingProgress,
+            uploadData.user.rehabilitatingProgress,
             uploadData.user.headPosture,
             uploadData.user.leftHandPosture,
             uploadData.user.rightHandPosture,
@@ -55,7 +55,7 @@ export class UDP {
         );
       } else {
         activeUser.avatarState = uploadData.user.avatarState;
-        activeUser.reachingProgress = uploadData.user.reachingProgress;
+        activeUser.reachingProgress = uploadData.user.rehabilitatingProgress;
         activeUser.headPosture = uploadData.user.headPosture;
         activeUser.leftHandPosture = uploadData.user.leftHandPosture;
         activeUser.rightHandPosture = uploadData.user.rightHandPosture;

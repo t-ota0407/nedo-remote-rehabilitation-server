@@ -10,7 +10,7 @@ export class SyncCommunicationUser {
     public readonly avatarType: AvatarType,
     public readonly rehabilitationCondition: RehabilitationCondition,
     public readonly avatarState: AvatarState,
-    public readonly reachingProgress: number,
+    public readonly rehabilitatingProgress: number,
     public readonly headPosture: Posture,
     public readonly leftHandPosture: Posture,
     public readonly rightHandPosture: Posture,

@@ -1,6 +1,6 @@
 export const avatarStates = [
-  "WALKING",
-  "KNIFE_SHARPENING",
+  "PREPARING",
+  "REHABILITATING",
   "INTERACTING_WITH_UI",
 ] as const;
 
