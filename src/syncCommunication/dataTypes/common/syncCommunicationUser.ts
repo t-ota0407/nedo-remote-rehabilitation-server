@@ -40,7 +40,7 @@ export class SyncCommunicationUser {
       return undefined;
     }
 
-    if (!("reachingProgress" in json) || isNaN(Number(json.reachingProgress))) {
+    if (!("rehabilitationProgress" in json) || isNaN(Number(json.rehabilitationProgress))) {
       return undefined;
     }
 
@@ -100,7 +100,7 @@ export class SyncCommunicationUser {
       json.avatarType as AvatarType,
       json.rehabilitationCondition as RehabilitationCondition,
       json.avatarState as AvatarState,
-      Number(json.reachingProgress),
+      Number(json.rehabilitationProgress),
       headPosture,
       leftHandPosture,
       rightHandPosture,
