@@ -11,11 +11,14 @@ export class SyncCommunicationUser {
     public readonly rehabilitationCondition: RehabilitationCondition,
     public readonly avatarState: AvatarState,
     public readonly rehabilitatingProgress: number,
+    public readonly usersRehabilitationScore: number,
     public readonly headPosture: Posture,
     public readonly leftHandPosture: Posture,
     public readonly rightHandPosture: Posture,
     public readonly leftLegPosture: Posture,
     public readonly rightLegPosture: Posture,
+    public readonly pelvisPosture: Posture,
+    public readonly rehabilitationObjectPosture: Posture
   ) { }
   
   public static fromJson(json: object): SyncCommunicationUser | undefined {
@@ -44,6 +47,10 @@ export class SyncCommunicationUser {
       return undefined;
     }
 
+    if (!("usersRehabilitationScore" in json) || isNaN(Number(json.usersRehabilitationScore))) {
+      return undefined;
+    }
+
     if (!("headPosture" in json) || !(typeof json.headPosture === "object" && json.headPosture !== null)) {
       return undefined;
     }
@@ -68,11 +75,21 @@ export class SyncCommunicationUser {
       return undefined;
     }
 
+    if (!("pelvisPosture" in json) || !(typeof json.pelvisPosture === "object" && json.pelvisPosture !== null)) {
+      return undefined;
+    }
+
+    if (!("rehabilitationObjectPosture" in json) || !(typeof json.rehabilitationObjectPosture === "object" && json.rehabilitationObjectPosture !== null)) {
+      return undefined;
+    }
+
     const headPosture = createPostureFromObject(json.headPosture);
     const leftHandPosture = createPostureFromObject(json.leftHandPosture);
     const rightHandPosture = createPostureFromObject(json.rightHandPosture);
     const leftLegPosture = createPostureFromObject(json.leftLegPosture);
     const rightLegPosture = createPostureFromObject(json.rightLegPosture);
+    const pelvisPosture = createPostureFromObject(json.pelvisPosture);
+    const rehabilitationObjectPosture = createPostureFromObject(json.rehabilitationObjectPosture);
 
     if (headPosture === undefined) {
       return undefined;
@@ -94,6 +111,14 @@ export class SyncCommunicationUser {
       return undefined;
     }
 
+    if (pelvisPosture === undefined) {
+      return undefined;
+    }
+
+    if (rehabilitationObjectPosture === undefined) {
+      return undefined;
+    }
+
     return new SyncCommunicationUser(
       json.userUuid,
       json.userName,
@@ -101,11 +126,14 @@ export class SyncCommunicationUser {
       json.rehabilitationCondition as RehabilitationCondition,
       json.avatarState as AvatarState,
       Number(json.rehabilitationProgress),
+      Number(json.usersRehabilitationScore),
       headPosture,
       leftHandPosture,
       rightHandPosture,
       leftLegPosture,
       rightLegPosture,
+      pelvisPosture,
+      rehabilitationObjectPosture,
     );
   }
 

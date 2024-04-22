@@ -1,3 +1,4 @@
+import { create } from "node:domain";
 import { AvatarState } from "../../../types/avatarState";
 import { AvatarType } from "../../../types/avatarType";
 import { Posture, createPosture } from "../../../types/posture";
@@ -19,11 +20,14 @@ export class ActiveUser {
   private _avatarType: AvatarType;
   private _avatarState: AvatarState;
   private _reachingProgress: number;
+  private _usersRehabilitationScore: number;
   private _headPosture: Posture;
   private _leftHandPosture: Posture;
   private _rightHandPosture: Posture;
   private _leftLegPosture: Posture;
   private _rightLegPosture: Posture;
+  private _pelvisPosture: Posture;
+  private _rehabilitationObjectPosture: Posture;
 
   public constructor(
     uuid: string, username: string,
@@ -33,9 +37,12 @@ export class ActiveUser {
     avatarType: AvatarType,
     avatarState: AvatarState,
     reachingProgress?: number,
+    usersRehabilitationScore?: number,
     headPosture?: Posture,
     leftHandPosture?: Posture, rightHandPosture?: Posture,
     leftLegPosture?: Posture, rightLegPosture?: Posture,
+    pelvisPosture?: Posture,
+    rehabilitationObjectPosture?: Posture,
   ) {
     this.uuid = uuid;
     this.username = username;
@@ -55,6 +62,11 @@ export class ActiveUser {
     this._reachingProgress = 0;
     if (reachingProgress) {
       this._reachingProgress = reachingProgress;
+    }
+
+    this._usersRehabilitationScore = 0;
+    if (usersRehabilitationScore) {
+      this._usersRehabilitationScore = usersRehabilitationScore;
     }
 
     this._headPosture = createPosture();
@@ -80,6 +92,16 @@ export class ActiveUser {
     this._rightLegPosture = createPosture();
     if (rightLegPosture) {
       this._rightLegPosture = rightLegPosture;
+    }
+
+    this._pelvisPosture = createPosture();
+    if (pelvisPosture) {
+      this._pelvisPosture = pelvisPosture;
+    }
+
+    this._rehabilitationObjectPosture = createPosture();
+    if (rehabilitationObjectPosture) {
+      this._rehabilitationObjectPosture = rehabilitationObjectPosture;
     }
   }
 
@@ -133,6 +155,11 @@ export class ActiveUser {
     this._updatedAt = new Date();
   }
 
+  set usersRehabilitationScore(value: number) {
+    this._usersRehabilitationScore = value;
+    this._updatedAt = new Date();
+  }
+
   set rehabilitationCondition(value: RehabilitationCondition) {
     this.rehabilitationCondition = value;
     this._updatedAt = new Date();
@@ -163,6 +190,16 @@ export class ActiveUser {
     this._updatedAt = new Date();
   }
 
+  set pelvisPosture(value: Posture) {
+    this._pelvisPosture = value;
+    this._updatedAt = new Date();
+  }
+
+  set rehabilitationObjectPosture(value: Posture) {
+    this._rehabilitationObjectPosture = value;
+    this._updatedAt = new Date();
+  }
+
   public copy(): ActiveUser {
     return new ActiveUser(
       this.uuid,
@@ -173,11 +210,14 @@ export class ActiveUser {
       this._avatarType,
       this._avatarState,
       this._reachingProgress,
+      this._usersRehabilitationScore,
       this._headPosture,
       this._leftHandPosture,
       this._rightHandPosture,
       this._leftLegPosture,
       this._rightLegPosture,
+      this._pelvisPosture,
+      this._rehabilitationObjectPosture,
     );
   }
 }

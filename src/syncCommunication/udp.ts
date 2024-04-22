@@ -46,21 +46,27 @@ export class UDP {
             uploadData.user.avatarType,
             uploadData.user.avatarState,
             uploadData.user.rehabilitatingProgress,
+            uploadData.user.usersRehabilitationScore,
             uploadData.user.headPosture,
             uploadData.user.leftHandPosture,
             uploadData.user.rightHandPosture,
             uploadData.user.leftLegPosture,
             uploadData.user.rightLegPosture,
+            uploadData.user.pelvisPosture,
+            uploadData.user.rehabilitationObjectPosture,
           )
         );
       } else {
         activeUser.avatarState = uploadData.user.avatarState;
         activeUser.reachingProgress = uploadData.user.rehabilitatingProgress;
+        activeUser.usersRehabilitationScore = uploadData.user.usersRehabilitationScore;
         activeUser.headPosture = uploadData.user.headPosture;
         activeUser.leftHandPosture = uploadData.user.leftHandPosture;
         activeUser.rightHandPosture = uploadData.user.rightHandPosture;
         activeUser.leftLegPosture = uploadData.user.leftLegPosture;
         activeUser.rightLegPosture = uploadData.user.rightLegPosture;
+        activeUser.pelvisPosture = uploadData.user.pelvisPosture;
+        activeUser.rehabilitationObjectPosture = uploadData.user.rehabilitationObjectPosture;
       }
 
       if (this.sendDatagramInterval === null) {

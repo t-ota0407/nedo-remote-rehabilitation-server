@@ -18,11 +18,14 @@ export class UDPDownloadData {
         activeUser.rehabilitationCondition,
         activeUser.avatarState,
         activeUser.reachingProgress,
+        activeUser.usersRehabilitationScore,
         activeUser.headPosture,
         activeUser.leftHandPosture,
         activeUser.rightHandPosture,
         activeUser.leftLegPosture,
         activeUser.rightLegPosture,
+        activeUser.pelvisPosture,
+        activeUser.rehabilitationObjectPosture,
       )
     );
   }
