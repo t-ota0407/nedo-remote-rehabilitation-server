@@ -12,6 +12,7 @@ export class SyncCommunicationUser {
     public readonly avatarState: AvatarState,
     public readonly rehabilitatingProgress: number,
     public readonly usersRehabilitationScore: number,
+    public readonly eps: number,
     public readonly headPosture: Posture,
     public readonly leftHandPosture: Posture,
     public readonly rightHandPosture: Posture,
@@ -48,6 +49,10 @@ export class SyncCommunicationUser {
     }
 
     if (!("usersRehabilitationScore" in json) || isNaN(Number(json.usersRehabilitationScore))) {
+      return undefined;
+    }
+
+    if (!("eps" in json) || isNaN(Number(json.eps))) {
       return undefined;
     }
 
@@ -127,6 +132,7 @@ export class SyncCommunicationUser {
       json.avatarState as AvatarState,
       Number(json.rehabilitationProgress),
       Number(json.usersRehabilitationScore),
+      Number(json.eps),
       headPosture,
       leftHandPosture,
       rightHandPosture,

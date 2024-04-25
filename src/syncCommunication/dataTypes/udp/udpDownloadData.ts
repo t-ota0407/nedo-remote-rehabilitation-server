@@ -19,6 +19,7 @@ export class UDPDownloadData {
         activeUser.avatarState,
         activeUser.reachingProgress,
         activeUser.usersRehabilitationScore,
+        activeUser.eps,
         activeUser.headPosture,
         activeUser.leftHandPosture,
         activeUser.rightHandPosture,

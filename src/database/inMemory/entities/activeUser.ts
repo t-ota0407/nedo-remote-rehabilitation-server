@@ -21,6 +21,7 @@ export class ActiveUser {
   private _avatarState: AvatarState;
   private _reachingProgress: number;
   private _usersRehabilitationScore: number;
+  private _eps: number;
   private _headPosture: Posture;
   private _leftHandPosture: Posture;
   private _rightHandPosture: Posture;
@@ -38,6 +39,7 @@ export class ActiveUser {
     avatarState: AvatarState,
     reachingProgress?: number,
     usersRehabilitationScore?: number,
+    eps?: number,
     headPosture?: Posture,
     leftHandPosture?: Posture, rightHandPosture?: Posture,
     leftLegPosture?: Posture, rightLegPosture?: Posture,
@@ -67,6 +69,11 @@ export class ActiveUser {
     this._usersRehabilitationScore = 0;
     if (usersRehabilitationScore) {
       this._usersRehabilitationScore = usersRehabilitationScore;
+    }
+
+    this._eps = 0;
+    if (eps) {
+      this._eps = eps;
     }
 
     this._headPosture = createPosture();
@@ -111,6 +118,10 @@ export class ActiveUser {
 
   get usersRehabilitationScore(): number {
     return this._usersRehabilitationScore;
+  }
+
+  get eps(): number {
+    return this._eps;
   }
 
   get avatarType(): AvatarType {
@@ -172,6 +183,11 @@ export class ActiveUser {
     this._updatedAt = new Date();
   }
 
+  set eps(value: number) {
+    this._eps = value;
+    this._updatedAt = new Date();
+  }
+
   set rehabilitationCondition(value: RehabilitationCondition) {
     this.rehabilitationCondition = value;
     this._updatedAt = new Date();
@@ -223,6 +239,7 @@ export class ActiveUser {
       this._avatarState,
       this._reachingProgress,
       this._usersRehabilitationScore,
+      this._eps,
       this._headPosture,
       this._leftHandPosture,
       this._rightHandPosture,
