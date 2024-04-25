@@ -82,6 +82,7 @@ export class UDP {
       this.sendDatagramInterval = setInterval(() => {
         try {
           const activeUsers = InMemoryDB.getInstance().getActiveUsersClone();
+          
 
           activeUsers.forEach((sendingActiveUser: ActiveUser) => {
             const udpDownloadData = UDPDownloadData.fromActiveUser(sendingActiveUser);

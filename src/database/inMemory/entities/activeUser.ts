@@ -109,6 +109,10 @@ export class ActiveUser {
     return this._reachingProgress;
   }
 
+  get usersRehabilitationScore(): number {
+    return this._usersRehabilitationScore;
+  }
+
   get avatarType(): AvatarType {
     return this._avatarType;
   }
@@ -139,6 +143,14 @@ export class ActiveUser {
 
   get rightLegPosture(): Posture {
     return this._rightLegPosture;
+  }
+
+  get pelvisPosture(): Posture {
+    return this._pelvisPosture;
+  }
+
+  get rehabilitationObjectPosture(): Posture {
+    return this._rehabilitationObjectPosture;
   }
 
   get updatedAt(): Date {
