@@ -61,6 +61,7 @@ export class UDP {
         activeUser.avatarState = uploadData.user.avatarState;
         activeUser.reachingProgress = uploadData.user.rehabilitatingProgress;
         activeUser.usersRehabilitationScore = uploadData.user.usersRehabilitationScore;
+        activeUser.eps = uploadData.user.eps;
         activeUser.headPosture = uploadData.user.headPosture;
         activeUser.leftHandPosture = uploadData.user.leftHandPosture;
         activeUser.rightHandPosture = uploadData.user.rightHandPosture;
